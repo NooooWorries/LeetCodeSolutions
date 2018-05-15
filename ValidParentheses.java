@@ -3,17 +3,22 @@ import java.util.*;
 public class ValidParentheses {
     public static boolean isValid(String s) {
         boolean result = false;
-        if (s.trim() == "")
+        if (s.equals(""))
             result = true;
         else {
             Stack<String> stack = new Stack<String>();
             String stringArray[] = s.split("(?!^)");
             stack.push(stringArray[0]);
             for (int i = 1; i < stringArray.length; i++) {
-                if (pair(stack.peek(), stringArray[i])) 
-                    stack.pop();
-                else
-                    stack.push(stringArray[i]);   
+                if (stack.empty() == false) {
+                    if (pair(stack.peek(), stringArray[i])) 
+                        stack.pop();
+                    else
+                        stack.push(stringArray[i]); 
+                } else {
+                    stack.push(stringArray[i]); 
+                }
+                  
             }
             result = stack.empty();
         }
